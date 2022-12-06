@@ -13,4 +13,12 @@ class Person extends Model
         'created_at',
         'updated_at',
     ];
+
+    protected $fillable = [
+        'name',
+        'email',
+        'address',
+        'phone_number',
+        'birth_date',
+    ];
 }

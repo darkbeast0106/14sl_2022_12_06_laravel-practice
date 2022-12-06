@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StorePersonRequest;
+use App\Http\Requests\UpdatePersonRequest;
 use App\Models\Person;
 use Illuminate\Http\Request;
 
@@ -25,9 +27,12 @@ class PersonController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePersonRequest $request)
     {
-        //
+        $person = new Person();
+        $person->fill($request->all());
+        $person->save();
+        return response()->json($person, 201);
     }
 
     /**
@@ -38,7 +43,11 @@ class PersonController extends Controller
      */
     public function show($id)
     {
-        //
+        $person = Person::find($id);
+        if (is_null($person)) {
+            return response()->json(["message" => "Not Found"], 404);
+        }
+        return response()->json($person);
     }
 
     /**
@@ -48,9 +57,15 @@ class PersonController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdatePersonRequest $request, $id)
     {
-        //
+        $person = Person::find($id);
+        if (is_null($person)) {
+            return response()->json(["message" => "Not Found"], 404);
+        }
+        $person->fill($request->all());
+        $person->save();
+        return response()->json($person);
     }
 
     /**
@@ -61,6 +76,11 @@ class PersonController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $person = Person::find($id);
+        if (is_null($person)) {
+            return response()->json(["message" => "Not Found"], 404);
+        }
+        $person->delete();
+        return response()->noContent();
     }
 }

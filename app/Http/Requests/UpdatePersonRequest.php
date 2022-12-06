@@ -13,7 +13,7 @@ class UpdatePersonRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,11 @@ class UpdatePersonRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            "name" => "string|max:255",
+            "email" => "email",
+            "address" => "string|max:255",
+            "phone_number" => "string",
+            "birth_date" => "date"
         ];
     }
 }
