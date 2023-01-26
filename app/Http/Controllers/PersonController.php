@@ -15,7 +15,8 @@ class PersonController extends Controller
      */
     public function index()
     {
-        //
+        $people = Person::all();
+        return view("people.index", ['people' => $people]);
     }
 
     /**
@@ -25,7 +26,7 @@ class PersonController extends Controller
      */
     public function create()
     {
-        //
+        return view("people.create");
     }
 
     /**
@@ -36,7 +37,10 @@ class PersonController extends Controller
      */
     public function store(StorePersonRequest $request)
     {
-        //
+        $person = new Person();
+        $person->fill($request->all());
+        $person->save();
+        return redirect()->route("people.index");
     }
 
     /**
