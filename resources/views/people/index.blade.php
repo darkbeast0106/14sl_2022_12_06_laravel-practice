@@ -13,9 +13,8 @@
                             <th>#</th>
                             <th>Név</th>
                             <th>E-mail</th>
-                            <th>Lakcím</th>
                             <th>Telefonszám</th>
-                            <th>Születési dátum</th>
+                            <th>Műveletek</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -24,9 +23,14 @@
                                 <td>{{ $person->id }}</td>
                                 <td>{{ $person->name }}</td>
                                 <td>{{ $person->email }}</td>
-                                <td>{{ $person->address }}</td>
                                 <td>{{ $person->phone_number }}</td>
-                                <td>{{ $person->birth_date }}</td>
+                                <td>
+                                    <a href="{{ route('people.show', $person->id) }}"
+                                        class="btn btn-outline-secondary">Részletek</a>
+                                    <a href="{{ route('people.edit', $person->id) }}"
+                                        class="btn btn-outline-secondary">Módosítás</a>
+                                    @include('people.delete-button', ['person' => $person])
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

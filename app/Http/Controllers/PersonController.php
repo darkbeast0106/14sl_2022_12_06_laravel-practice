@@ -40,7 +40,7 @@ class PersonController extends Controller
         $person = new Person();
         $person->fill($request->all());
         $person->save();
-        return redirect()->route("people.index");
+        return redirect()->route("people.show", $person->id);
     }
 
     /**
@@ -51,7 +51,7 @@ class PersonController extends Controller
      */
     public function show(Person $person)
     {
-        //
+        return view("people.show", ["person" => $person]);
     }
 
     /**
@@ -62,7 +62,7 @@ class PersonController extends Controller
      */
     public function edit(Person $person)
     {
-        //
+        return view("people.edit", ["person" => $person]);
     }
 
     /**
@@ -74,7 +74,9 @@ class PersonController extends Controller
      */
     public function update(UpdatePersonRequest $request, Person $person)
     {
-        //
+        $person->fill($request->all());
+        $person->save();
+        return redirect()->route("people.show", $person->id);
     }
 
     /**
@@ -85,6 +87,7 @@ class PersonController extends Controller
      */
     public function destroy(Person $person)
     {
-        //
+        $person->delete();
+        return redirect()->route("people.index");
     }
 }
