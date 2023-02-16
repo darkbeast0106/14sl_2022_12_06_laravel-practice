@@ -83,4 +83,42 @@ class PersonController extends Controller
         $person->delete();
         return response()->noContent();
     }
+
+    public function stats()
+    {
+        $people = Person::all();
+        $today = date("Y-m-d");
+        $ageTotal = 0;
+        foreach ($people as $key => $person) {
+            $diff = date_diff(date_create($person->birth_date), date_create($today));
+            $age = $diff->format('%y');
+            $people[$key]->age = $age;
+            $ageTotal += $age;
+        }
+
+        $youngest = $people[0];
+        $oldest = $people[0];
+        for ($i=1; $i < count($people); $i++) {
+            if ($people[$i]->age < $youngest->age) {
+                $youngest = $people[$i];
+            } else if ($people[$i]->age > $oldest->age) {
+                $oldest = $people[$i];
+            }
+        }
+        $averageAge = $ageTotal / count($people);
+        $stats = [
+            "youngest" => $youngest,
+            "oldest" => $oldest,
+            "averageAge" => $averageAge,
+        ];
+        return response()->json($stats);
+    }
+
+    public function age($id) {
+        $person = Person::find($id);
+        $today = date("Y-m-d");
+        $diff = date_diff(date_create($person->birth_date), date_create($today));
+        $age = $diff->format('%y');
+        return response()->json($age);
+    }
 }

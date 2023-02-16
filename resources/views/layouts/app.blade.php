@@ -37,6 +37,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route("people.create") }}">{{ "Emberek felvétele" }}</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route("stats") }}">{{ "Statisztika" }}</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

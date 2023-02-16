@@ -18,4 +18,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::get("/people/stats", [PersonController::class, "stats"]);
 Route::apiResource("/people", PersonController::class);
+Route::get("people/{id}/age", [PersonController::class, "age"]);

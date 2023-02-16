@@ -24,4 +24,8 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
+Route::get('/people/stats', function() {
+    return view('people.stats');
+})->name("stats");
+
 Route::resource('/people', PersonController::class);
