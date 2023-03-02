@@ -9,7 +9,7 @@ function Statisztika() {
     const [errors, setErrors] = useState("");
 
     useEffect(() => {
-        fetch("http://localhost:8000/api/people/stats", {
+        fetch("/api/people/stats", {
             headers: {
                 Acccept: "application/json"
             }
